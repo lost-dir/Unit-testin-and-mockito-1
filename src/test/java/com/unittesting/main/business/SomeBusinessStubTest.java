@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import com.unittesting.main.service.SomeDataService;
 
+
+/*This is an stubbing class its objective is to create an instance of the interface we use as service and use its methods*/
 class SomeDataServiceStub implements SomeDataService{
 
 	@Override
