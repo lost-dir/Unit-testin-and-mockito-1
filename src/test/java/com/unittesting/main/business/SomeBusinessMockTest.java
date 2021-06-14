@@ -1,60 +1,46 @@
 package com.unittesting.main.business;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.unittesting.main.service.SomeDataService;
-
-//Instead of the stubbing class there is no class in here
-
+/**
+ * This annotation is the equivalent to run with mockito junit runner
+ * and it is necessary to include two dependencies into the POM.XML f
+ * -ile, mockito-core & mockito-junit-jupiter
+ * */
+@ExtendWith(MockitoExtension.class)
 class SomeBusinessMockTest {
 	
-	SomeBusiness someBusiness = new SomeBusiness();
-	//1.-
-	/*
-	 * At first we create an object of SomeDataService which is assigned to a mock object and we define the class we will mock inside this mock object
-	 * */
-	SomeDataService someDataService = mock(SomeDataService.class);
+	@InjectMocks
+	SomeBusiness someBusiness;
+	
+	@Mock
+	SomeDataService someDataService;
 
 	@Test
 	void calculateSumService() {
-		//2.-
-		/*
-		 * Now we use the method when that means, when we call this mock object, the return, and we can manipulate the returning data
-		 * */
 		when(someDataService.retieveAllData()).thenReturn(new int[] {1,2,3});
-		//3.-
-		/*
-		 * At last we assign the retrieved data to the dependency in the Some business dot java class
-		 * */
-		someBusiness.setSomeDataService(someDataService);
-		int actualResult = someBusiness.calculateSumService();
-		int expectedResult = 6;
-		assertEquals(expectedResult, actualResult);
+		assertEquals(6, someBusiness.calculateSumService());
 	}
-
+	
 	@Test
 	void calculateSumTest_empty() {
 		when(someDataService.retieveAllData()).thenReturn(new int[] {});
-		someBusiness.setSomeDataService(someDataService);
-		
-		int actualResult = someBusiness.calculateSumService();
-		int expectedResult = 0;
-		assertEquals(expectedResult, actualResult);
+		assertEquals(0, someBusiness.calculateSumService());
 	}
 	
 	@Test
 	void calculateSumTest_oneValue() {
-		
 		when(someDataService.retieveAllData()).thenReturn(new int[] {5});
-		someBusiness.setSomeDataService(someDataService);
-		
-		int actualResult = someBusiness.calculateSumService();
-		int expectedResult = 5;
-		assertEquals(expectedResult, actualResult);
+		assertEquals(5, someBusiness.calculateSumService());
 	}
-
+	
 }
+	
