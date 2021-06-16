@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 
 class ListMockTest {
 	
-	List mock = Mockito.mock(List.class);
+	List<?> mock = Mockito.mock(List.class);
 
 	@Test
 	void sizeBasic() {
@@ -22,7 +22,7 @@ class ListMockTest {
 	void returnDifferentValues() {
 		when(mock.size()).thenReturn(5).thenReturn(10);
 		assertEquals(5, mock.size());
-		assertEquals(5, mock.size());
+		assertEquals(10, mock.size());
 	}
 
 }
